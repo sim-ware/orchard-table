@@ -1,5 +1,5 @@
-import React from 'react';
-import { useTable, useSortBy } from 'react-table'
+import React, { useState } from 'react';
+import { useTable, useSortBy, useFilters } from 'react-table'
 
 
 function Table({ columns, data }) {
@@ -9,26 +9,38 @@ function Table({ columns, data }) {
     headerGroups,
     rows,
     prepareRow,
+    setFilter
   } = useTable(
     {
       columns,
       data,
     },
+    useFilters,
     useSortBy
   )
 
+  const [filterInput, setFilterInput] = useState("");
+
+  const handleFilterChange = e => {
+    const value = e.target.value || undefined;
+    setFilter("name", value);
+    setFilterInput(value);
+  };
+
   return (
     <>
+      <input
+        value={filterInput}
+        onChange={handleFilterChange}
+        placeholder={"Search name"}
+      />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                // Add the sorting props to control sorting. For this example
-                // we can add them into the header props
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render('Header')}
-                  {/* Add a sort direction indicator */}
                   <span>
                     {column.isSorted
                       ? column.isSortedDesc
@@ -59,7 +71,7 @@ function Table({ columns, data }) {
         </tbody>
       </table>
       <br />
-      <div>Showing the first {rows.length} results</div>
+      <div>There are {rows.length} results in Total</div>
     </>
   )
 }
