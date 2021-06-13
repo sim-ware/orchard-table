@@ -1,7 +1,16 @@
+import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [orchardData, setOrchardData] = useState(0);
+
+  useEffect(() => {
+    fetch('https://bx.group/.test/orchards.json')
+      .then(response => response.json())
+      .then(data => setOrchardData(data));
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -9,14 +18,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>{JSON.stringify(orchardData)}</p>
       </header>
     </div>
   );
