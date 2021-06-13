@@ -3,7 +3,6 @@ import './App.css';
 import styled from 'styled-components'
 import Table from './Table';
 
-import makeData from './makeData'
 
 const Styles = styled.div`
   padding: 1rem;
@@ -46,36 +45,43 @@ function App() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Name',
+        Header: 'Orchards',
         columns: [
           {
-            Header: 'First Name',
-            accessor: 'firstName',
+            Header: 'Name',
+            accessor: 'name',
           },
           {
-            Header: 'Last Name',
-            accessor: 'lastName',
-          },
-        ],
-      },
-      {
-        Header: 'Info',
-        columns: [
-          {
-            Header: 'Age',
-            accessor: 'age',
+            Header: 'Fruit',
+            accessor: 'fruit',
           },
           {
-            Header: 'Visits',
-            accessor: 'visits',
+            Header: 'Variety',
+            accessor: 'variety',
           },
           {
-            Header: 'Status',
-            accessor: 'status',
+            Header: 'Growing System',
+            accessor: 'growingSystem',
           },
           {
-            Header: 'Profile Progress',
-            accessor: 'progress',
+            Header: 'Area Ha',
+            accessor: 'areaHa',
+          },
+          {
+            Header: 'Trees',
+            accessor: 'trees',
+          },
+          {
+            Header: 'Planted',
+            accessor: 'planted',
+          },
+          {
+            Header: 'Latitude',
+            accessor: 'lat',
+          },
+          {
+            Header: 'Longitude',
+            accessor: 'lng',
           },
         ],
       },
@@ -83,13 +89,9 @@ function App() {
     []
   )
 
-  const data = React.useMemo(() => makeData(2000), [])
-
   return (
     <Styles>
-      <Table columns={columns} data={data}/>
-      <p>{JSON.stringify(data)}</p>
-      <p>{JSON.stringify(orchardData)}</p>
+      <Table columns={columns} data={orchardData || []}/> 
     </Styles>
   )
 }

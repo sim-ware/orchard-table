@@ -17,10 +17,6 @@ function Table({ columns, data }) {
     useSortBy
   )
 
-  // We don't want to render all 2000 rows for this example, so cap
-  // it at 20 for this use case
-  const firstPageRows = rows.slice(0, 20)
-
   return (
     <>
       <table {...getTableProps()}>
@@ -46,7 +42,7 @@ function Table({ columns, data }) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {firstPageRows.map(
+          {rows.map(
             (row, i) => {
               prepareRow(row);
               return (
@@ -63,7 +59,7 @@ function Table({ columns, data }) {
         </tbody>
       </table>
       <br />
-      <div>Showing the first 20 results of {rows.length} rows</div>
+      <div>Showing the first {rows.length} results</div>
     </>
   )
 }
